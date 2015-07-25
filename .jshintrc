@@ -1,0 +1,25 @@
+{
+  // Require you to always put curly braces around blocks
+  "curly": true,
+
+  // Prohibit use of == and != in favor of === and !==
+  "eqeqeq": true,
+
+  // Suppress warnings about == null comparisons
+  "eqnull": true,
+
+  // Prohibit use of a variable before it is defined.
+  "latedef": true,
+
+  // Define globals exposed by Node.js
+  "node": true,
+
+  // Prohibit the use of arguments.caller and arguments.callee
+  "noarg": true,
+
+  // Prohibit use of explicitly undeclared variables
+  "undef": true,
+
+  // Warn when variables are defined but never used
+  "unused": true
+}

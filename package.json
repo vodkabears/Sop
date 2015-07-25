@@ -1,0 +1,46 @@
+{
+  "name": "ovi",
+  "version": "0.0.1",
+  "description": "Micro-library for parsing stringified parameters or converting parameters to the string representation.",
+  "keywords": [
+    "micro-library",
+    "parser",
+    "converter",
+    "parameters",
+    "properties",
+    "options",
+    "arguments",
+    "params",
+    "props",
+    "opts",
+    "args",
+    "parse",
+    "convert",
+    "browser",
+    "node"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VodkaBears/Ovi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/VodkaBears/Ovi/issues"
+  },
+  "author": {
+    "name": "Ilya Makarov",
+    "email": "dfrost.00@gmail.com",
+    "url": "https://github.com/VodkaBears"
+  },
+  "homepage": "http://vodkabears.github.io/ovi/",
+  "license": "MIT",
+  "main": "dist/ovi.js",
+  "scripts": {
+    "test": "./node_modules/.bin/gulp test"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jscs": "^1.6.0",
+    "gulp-jshint": "^1.11.2",
+    "jshint-stylish": "^2.0.1"
+  }
+}

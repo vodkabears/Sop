@@ -1,0 +1,36 @@
+{
+  "name": "ovi",
+  "homepage": "http://vodkabears.github.io/ovi/",
+  "authors": [
+    "Ilya Makarov <dfrost.00@gmail.com>"
+  ],
+  "description": "Micro-library for parsing stringified parameters or converting parameters to the string representation.",
+  "main": [
+    "dist/ovi.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "test/",
+    "*.md",
+    "gulpfile.js",
+    "package.json"
+  ],
+  "keywords": [
+    "micro-library",
+    "parser",
+    "converter",
+    "parameters",
+    "properties",
+    "options",
+    "arguments",
+    "params",
+    "props",
+    "opts",
+    "args",
+    "parse",
+    "convert",
+    "browser",
+    "node"
+  ],
+  "license": "MIT"
+}
