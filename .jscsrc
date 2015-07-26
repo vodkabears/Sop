@@ -29,7 +29,7 @@
   "disallowMultipleLineBreaks": true,
   "disallowMultipleVarDecl": true,
   "maximumLineLength": {
-    "value": 120,
+    "value": 200,
     "allExcept": ["urlComments"]
   },
   "requireSpaceBeforeBlockStatements": true,
