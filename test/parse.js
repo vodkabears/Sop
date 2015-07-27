@@ -7,7 +7,7 @@ describe('.parse(str, opts)', function() {
   });
 
   it('should correctly parse `undefined`', function() {
-    assert.deepEqual(Ovi.parse('value: null'), {value: undefined});
+    assert.deepEqual(Ovi.parse('value: undefined'), {value: undefined});
   });
 
   describe('for boolean values', function() {
@@ -25,8 +25,8 @@ describe('.parse(str, opts)', function() {
       assert.deepEqual(Ovi.parse('value: 1000'), {value: 1000});
     });
 
-    it('should correctly parse a number with 0 in the beginning', function() {
-      assert.deepEqual(Ovi.parse('value: 01000'), {value: 01000});
+    it('should correctly parse a number with "0x" or "0X" in the beginning', function() {
+      assert.deepEqual(Ovi.parse('val1: 0x1000, val2: 0X1000'), {val1: 4096, val2: 4096});
     });
 
     it('should correctly parse a float', function() {
