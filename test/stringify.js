@@ -12,11 +12,11 @@ describe('.stringify(obj, opts)', function() {
 
   describe('for boolean values', function() {
     it('should correctly stringify `true`', function() {
-      assert.equal(Ovi.stringify({value:true}, 'value:true'));
+      assert.equal(Ovi.stringify({value:true}), 'value:true');
     });
 
     it('should correctly stringify `false`', function() {
-      assert.equal(Ovi.stringify({value:false}, 'value:false'));
+      assert.equal(Ovi.stringify({value:false}), 'value:false');
     });
   });
 
@@ -26,7 +26,7 @@ describe('.stringify(obj, opts)', function() {
     });
 
     it('should correctly stringify a number with 0 in the beginning', function() {
-      assert.equal(Ovi.stringify({value: 01000}), 'value:01000');
+      assert.equal(Ovi.stringify({value: 01000}), 'value:512');
     });
 
     it('should correctly stringify a float', function() {
@@ -65,7 +65,7 @@ describe('.stringify(obj, opts)', function() {
       num: 10,
       str: 'http://te.st:80,',
       bool: false
-    }, 'num:10, str: "http://te.st:80,", bool: false'));
+    }), 'num:10,str:"http://te.st:80,",bool:false');
   });
 
   describe('with options', function() {
@@ -83,14 +83,14 @@ describe('.stringify(obj, opts)', function() {
         useSpaceAfterPropsDelim: true,
         useSpaceBeforePropsDelim: true,
         useAlwaysQuotesForStrings: true
-      }), 'num : 10 , str1 : "http://te.st:80" , str : "http://te.st:80," , bool : false');
+      }), 'num : 10 , str1 : http://te.st:80 , str2 : "http://te.st:80," , bool : false');
     });
 
     it('should correctly stringify an object when the key-value delimiter is `=` and the delimiter of properies is `&`', function() {
       assert.equal(Ovi.stringify(props, {
         keyValDelim: '=',
         propsDelim: '&'
-      }), 'num=10&str1=http://te.st:80&str2="http://te.st:80,"&bool=false');
+      }), 'num=10&str1=http://te.st:80&str2=http://te.st:80,&bool=false');
     });
   });
 });
