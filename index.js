@@ -26,9 +26,14 @@ var rDoubleQuotesFilter = /^"(.*)"$/;
  * Removes extra spaces
  * @private
  * @param {String} str
+ * @param {Object} opts
+ *  @param {String} opts.propsDelim
+ *  @param {String} opts.keyValDelim
  * @returns {String}
  */
-function clearString(str, keyValDelim, propsDelim) {
+function clearString(str, opts) {
+  var propsDelim = opts.propsDelim;
+  var keyValDelim = opts.keyValDelim;
   var rPropsFilter =  new RegExp('\\s*' + propsDelim + '\\s*', 'g');
   var rKeyValFilter = new RegExp('\\s*' + keyValDelim + '\\s*', 'g');
 
@@ -78,7 +83,7 @@ function splitString(str, delimiter, useOnce) {
 }
 
 /**
- * Checks if a stringified value is a boolean
+ * Checks if a stringified value is the boolean type
  * @private
  * @param {String} value
  * @returns {Boolean}
@@ -88,7 +93,7 @@ function isBoolean(value) {
 }
 
 /**
- * Checks if a stringified value is a number
+ * Checks if a stringified value is the number type
  * @private
  * @param {String} value
  * @returns {Boolean}
@@ -98,7 +103,7 @@ function isNumber(value) {
 }
 
 /**
- * Checks if a stringified value is an undefined
+ * Checks if a stringified value is undefined
  * @private
  * @param {String} value
  * @returns {Boolean}
@@ -108,7 +113,7 @@ function isUndefined(value) {
 }
 
 /**
- * Checks if a stringified value is a null
+ * Checks if a stringified value is null
  * @private
  * @param {String} value
  * @returns {Boolean}
@@ -122,6 +127,7 @@ function isNull(value) {
  * @private
  * @param {String} value
  * @param {Object} opts
+ *  @param {String} opts.propsDelim
  * @returns {Boolean}
  */
 function isUnsafe(value, opts) {
@@ -205,6 +211,11 @@ function stringifyValue(value, opts) {
  * @param {String} key
  * @param {*} value
  * @param {Object} opts
+ *  @param {String} opts.keyValDelim
+ *  @param {Boolean} opts.useSpaceBeforeKeyValDelim
+ *  @param {Boolean} opts.useSpaceAfterKeyValDelim
+ *  @param {Boolean} opts.useSpaceBeforePropsDelim
+ *  @param {Boolean} opts.useSpaceAfterPropsDelim
  * @returns {String}
  */
 function stringifyProp(key, value, opts) {
@@ -222,6 +233,9 @@ function stringifyProp(key, value, opts) {
  * @private
  * @param {Array} props
  * @param {Object} opts
+ *  @param {String} opts.propsDelim
+ *  @param {Boolean} opts.useSpaceBeforePropsDelim
+ *  @param {Boolean} opts.useSpaceAfterPropsDelim
  * @returns {String}
  */
 function joinProps(props, opts) {
@@ -239,28 +253,25 @@ function joinProps(props, opts) {
  * @public
  * @param {String} str Stringified options for parsing
  * @param {Object} opts
+ *  @param {String} [opts.propsDelim=',']
+ *  @param {String} [opts.keyValDelim=':']
  * @returns {Object}
  */
 module.exports.parse = function(str, opts) {
   opts = extend({}, DEFAULTS, opts);
 
-  var keyValDelim = opts.keyValDelim;
-  var propsDelim = opts.propsDelim;
   var result = {};
   var i;
   var len;
   var prop;
   var props;
 
-  // Remove extra spaces
-  str = clearString(str, keyValDelim, propsDelim);
-
   // Get an array of stringified properties
-  props = splitString(str, propsDelim);
+  props = splitString(clearString(str, opts), opts.propsDelim);
 
   // Convert stringified properties to the object with parsed values
   for (i = 0, len = props.length; i < len; i++) {
-    prop = splitString(props[i], keyValDelim, true);
+    prop = splitString(props[i], opts.keyValDelim, true);
 
     if (prop.length === 2) {
       result[prop[0]] = parseValue(prop[1]);
@@ -275,16 +286,25 @@ module.exports.parse = function(str, opts) {
  * @public
  * @param {Object} obj
  * @param {Object} opts
+ *  @param {String} [opts.propsDelim=',']
+ *  @param {String} [opts.keyValDelim=':']
+ *  @param {Boolean} [opts.useSpaceBeforeKeyValDelim=false]
+ *  @param {Boolean} [opts.useSpaceAfterKeyValDelim=false]
+ *  @param {Boolean} [opts.useSpaceBeforePropsDelim=false]
+ *  @param {Boolean} [opts.useSpaceAfterPropsDelim=false]
  * @returns {String}
  */
 module.exports.stringify = function(obj, opts) {
   opts = extend({}, DEFAULTS, opts);
 
+  var hasOwnProperty = Object.hasOwnProperty;
   var res = [];
   var key;
 
   for (key in obj) {
-    res.push(stringifyProp(key, obj[key], opts));
+    if (hasOwnProperty.call(obj, key)) {
+      res.push(stringifyProp(key, obj[key], opts));
+    }
   }
 
   return joinProps(res, opts);
