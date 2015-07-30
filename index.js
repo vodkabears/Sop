@@ -10,9 +10,9 @@ var DEFAULTS = {
   keyValDelim: ':',
   propsDelim: ',',
   useSpaceBeforeKeyValDelim: false,
-  useSpaceAfterKeyValDelim: true,
+  useSpaceAfterKeyValDelim: false,
   useSpaceBeforePropsDelim: false,
-  useSpaceAfterPropsDelim: true,
+  useSpaceAfterPropsDelim: false,
   useAlwaysQuotesForStrings: false
 };
 
@@ -118,6 +118,17 @@ function isNull(value) {
 }
 
 /**
+ * Checks if a stringified value is unsafe
+ * @private
+ * @param {String} value
+ * @param {Object} opts
+ * @returns {Boolean}
+ */
+function isUnsafe(value, opts) {
+  return value.search(rDoubleQuotesFilter) !== 0 && value.indexOf(opts.propsDelim) !== -1;
+}
+
+/**
  * Parses a stringified number
  * @private
  * @param {String} value
@@ -165,10 +176,69 @@ function parseValue(value) {
 }
 
 /**
+ * Stringifies a value
+ * @private
+ * @param {*} value
+ * @param {Object} opts
+ * @returns {String}
+ */
+function stringifyValue(value, opts) {
+  if (typeof value === 'string' || value instanceof String) {
+    if (
+      isUnsafe(value, opts) ||
+      isNull(value) ||
+      isUndefined(value) ||
+      isBoolean(value) ||
+      isNumber(value)
+    ) {
+      return '\"' + value + '\"';
+    }
+  }
+
+  // Convert to the string type, always
+  return '' + value;
+}
+
+/**
+ * Stringifies a property
+ * @private
+ * @param {String} key
+ * @param {*} value
+ * @param {Object} opts
+ * @returns {String}
+ */
+function stringifyProp(key, value, opts) {
+  return [
+    key,
+    opts.useSpaceBeforeKeyValDelim ? ' ' : '',
+    opts.keyValDelim,
+    opts.useSpaceAfterKeyValDelim ? ' ' : '',
+    stringifyValue(value, opts)
+  ].join('');
+}
+
+/**
+ * Join an array of processed properties
+ * @private
+ * @param {Array} props
+ * @param {Object} opts
+ * @returns {String}
+ */
+function joinProps(props, opts) {
+  var delimiter = [
+    opts.useSpaceBeforePropsDelim ? ' ' : '',
+    opts.propsDelim,
+    opts.useSpaceAfterPropsDelim ? ' ' : ''
+  ].join('');
+
+  return props.join(delimiter);
+}
+
+/**
  * Parses stringified options
  * @public
  * @param {String} str Stringified options for parsing
- * @param {Object} opts Options
+ * @param {Object} opts
  * @returns {Object}
  */
 module.exports.parse = function(str, opts) {
@@ -198,4 +268,24 @@ module.exports.parse = function(str, opts) {
   }
 
   return result;
+};
+
+/**
+ * Stringifies an object with options
+ * @public
+ * @param {Object} obj
+ * @param {Object} opts
+ * @returns {String}
+ */
+module.exports.stringify = function(obj, opts) {
+  opts = extend({}, DEFAULTS, opts);
+
+  var res = [];
+  var key;
+
+  for (key in obj) {
+    res.push(stringifyProp(key, obj[key], opts));
+  }
+
+  return joinProps(res, opts);
 };
