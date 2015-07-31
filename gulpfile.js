@@ -34,6 +34,12 @@ var BROWSER_DIST = 'browser/';
 
 /**
  * @const
+ * @type {String}
+ */
+var BROWSER_TESTS_DIST = 'test/browser';
+
+/**
+ * @const
  * @type {Array}
  */
 var LIB_SRC = ['index.js'];
@@ -66,7 +72,7 @@ gulp.task('browserify-unit', function() {
   return browserify({ entries: TEST_SRC })
     .bundle()
     .pipe(source('bundle.js'))
-    .pipe(gulp.dest('test/browser'));
+    .pipe(gulp.dest(BROWSER_TESTS_DIST));
 });
 
 gulp.task('unit', function() {
