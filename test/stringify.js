@@ -61,11 +61,15 @@ describe('.stringify(obj, opts)', function() {
   });
 
   it('should correctly stringify mixed', function() {
+    Object.prototype.secretProperty = '100% test coverage. ^__^';
+
     assert.equal(Ovi.stringify({
       num: 10,
       str: 'http://te.st:80,',
       bool: false
     }), 'num:10,str:"http://te.st:80,",bool:false');
+
+    delete Object.prototype.secretProperty;
   });
 
   describe('with options', function() {

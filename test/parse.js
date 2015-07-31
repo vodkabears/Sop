@@ -76,6 +76,13 @@ describe('.parse(str, opts)', function() {
         str: 'http://te.st:80'
       });
     });
+
+    it('should correctly parse a string with invalid properties', function() {
+      assert.deepEqual(Ovi.parse('num: 10, boolfalse, str:http://te.st:80'), {
+        num: 10,
+        str: 'http://te.st:80'
+      });
+    });
   });
 
   it('should correctly parse when the key-value delimiter is `=` and the delimiter of properies is `&`', function() {

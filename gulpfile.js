@@ -2,6 +2,13 @@ var gulp = require('gulp');
 var jscs = require('gulp-jscs');
 var mocha = require('gulp-mocha');
 var jshint = require('gulp-jshint');
+var istanbul = require('gulp-istanbul');
+
+/**
+ * @const
+ * @type {Array}
+ */
+var LIB_SRC = ['index.js'];
 
 /**
  * @const
@@ -27,11 +34,18 @@ gulp.task('jscs', function() {
     .pipe(jscs());
 });
 
-gulp.task('mocha', function() {
-  return gulp.src(TEST_SRC, {read: false})
-    .pipe(mocha());
+gulp.task('unit', function() {
+  return gulp.src(LIB_SRC)
+    .pipe(istanbul())
+    .pipe(istanbul.hookRequire())
+    .on('finish', function() {
+      gulp.src(TEST_SRC)
+        .pipe(mocha())
+        .pipe(istanbul.writeReports())
+        .pipe(istanbul.enforceThresholds({thresholds: {global: 90}}));
+    });
 });
 
 gulp.task('lint', ['jshint', 'jscs']);
-gulp.task('test', ['lint', 'mocha']);
+gulp.task('test', ['lint', 'unit']);
 gulp.task('default', ['test']);
