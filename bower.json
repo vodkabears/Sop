@@ -6,7 +6,7 @@
   ],
   "description": "Micro-library for parsing stringified parameters or converting parameters to the string representation.",
   "main": [
-    "dist/ovi.js"
+    "browser/ovi.min.js"
   ],
   "ignore": [
     "**/.*",

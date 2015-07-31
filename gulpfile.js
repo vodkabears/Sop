@@ -1,10 +1,36 @@
+var pkg = require('./package.json');
 var gulp = require('gulp');
 var jscs = require('gulp-jscs');
 var mocha = require('gulp-mocha');
 var jshint = require('gulp-jshint');
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
+var header = require('gulp-header');
 var source = require('vinyl-source-stream');
 var istanbul = require('gulp-istanbul');
 var browserify = require('browserify');
+
+/**
+ * @const
+ * @type {String}
+ */
+var BANNER = [
+  '/*',
+  ' *  <%= pkg.name[0].toUpperCase() + pkg.name.slice(1) %> - v<%= pkg.version %>',
+  ' *  <%= pkg.description %>',
+  ' *  <%= pkg.homepage %>',
+  ' *',
+  ' *  Made by <%= pkg.author.name %>',
+  ' *  Under <%= pkg.license %> License',
+  ' */',
+  ''
+].join('\n');
+
+/**
+ * @const
+ * @type {String}
+ */
+var BROWSER_DIST = 'browser/';
 
 /**
  * @const
@@ -40,10 +66,10 @@ gulp.task('browserify-unit', function() {
   return browserify({ entries: TEST_SRC })
     .bundle()
     .pipe(source('bundle.js'))
-    .pipe(gulp.dest('test/browser/'));
+    .pipe(gulp.dest('test/browser'));
 });
 
-gulp.task('unit', ['browserify-unit'], function() {
+gulp.task('unit', function() {
   return gulp.src(LIB_SRC)
     .pipe(istanbul())
     .pipe(istanbul.hookRequire())
@@ -55,6 +81,30 @@ gulp.task('unit', ['browserify-unit'], function() {
     });
 });
 
+gulp.task('browserify', function() {
+  var name = pkg.name;
+
+  return browserify({
+      entries: LIB_SRC,
+      standalone: name[0].toUpperCase() + name.slice(1)
+    })
+    .bundle()
+    .pipe(source(name + '.js'))
+    .pipe(header(BANNER, { pkg: pkg }))
+    .pipe(gulp.dest(BROWSER_DIST));
+});
+
+gulp.task('compress', ['browserify'], function() {
+  var name = pkg.name;
+
+  return gulp.src(BROWSER_DIST + name + '.js')
+    .pipe(uglify())
+    .pipe(rename(name + '.min.js'))
+    .pipe(header(BANNER, { pkg: pkg }))
+    .pipe(gulp.dest(BROWSER_DIST));
+});
+
 gulp.task('lint', ['jshint', 'jscs']);
-gulp.task('test', ['lint', 'unit']);
-gulp.task('default', ['test']);
+gulp.task('test', ['lint', 'unit','browserify-unit']);
+gulp.task('build', ['browserify', 'compress']);
+gulp.task('default', ['test', 'build']);
