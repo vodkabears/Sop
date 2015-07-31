@@ -16,7 +16,7 @@ var LIB_SRC = ['index.js'];
  * @const
  * @type {Array}
  */
-var JS_SRC = ['*.js', '!node_modules/**'];
+var JS_SRC = ['*.js', 'test/*.js'];
 
 /**
  * @const
@@ -37,7 +37,7 @@ gulp.task('jscs', function() {
 });
 
 gulp.task('browserify-unit', function() {
-  return browserify({entries: TEST_SRC})
+  return browserify({ entries: TEST_SRC })
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(gulp.dest('test/browser/'));
@@ -51,7 +51,7 @@ gulp.task('unit', ['browserify-unit'], function() {
       gulp.src(TEST_SRC)
         .pipe(mocha())
         .pipe(istanbul.writeReports())
-        .pipe(istanbul.enforceThresholds({thresholds: {global: 90}}));
+        .pipe(istanbul.enforceThresholds({ thresholds: { global: 90 }}));
     });
 });
 

@@ -3,60 +3,60 @@ var assert = require('proclaim');
 
 describe('.stringify(obj, opts)', function() {
   it('should correctly stringify `null`', function() {
-    assert.equal(Ovi.stringify({value:null}), 'value:null');
+    assert.equal(Ovi.stringify({ value:null }), 'value:null');
   });
 
   it('should correctly stringify `undefined`', function() {
-    assert.equal(Ovi.stringify({value:undefined}), 'value:undefined');
+    assert.equal(Ovi.stringify({ value:undefined }), 'value:undefined');
   });
 
   describe('for boolean values', function() {
     it('should correctly stringify `true`', function() {
-      assert.equal(Ovi.stringify({value:true}), 'value:true');
+      assert.equal(Ovi.stringify({ value:true }), 'value:true');
     });
 
     it('should correctly stringify `false`', function() {
-      assert.equal(Ovi.stringify({value:false}), 'value:false');
+      assert.equal(Ovi.stringify({ value:false }), 'value:false');
     });
   });
 
   describe('for numeric values', function() {
     it('should correctly stringify a simple integer number', function() {
-      assert.equal(Ovi.stringify({value: 1000}), 'value:1000');
+      assert.equal(Ovi.stringify({ value: 1000 }), 'value:1000');
     });
 
     it('should correctly stringify a number with 0 in the beginning', function() {
-      assert.equal(Ovi.stringify({value: 01000}), 'value:512');
+      assert.equal(Ovi.stringify({ value: 01000 }), 'value:512');
     });
 
     it('should correctly stringify a float', function() {
-      assert.equal(Ovi.stringify({value: 1000.1}), 'value:1000.1');
+      assert.equal(Ovi.stringify({ value: 1000.1 }), 'value:1000.1');
     });
   });
 
   describe('for string values', function() {
     it('should correctly stringify a string', function() {
-      assert.equal(Ovi.stringify({value: 'http://localhost:8080'}), 'value:http://localhost:8080');
+      assert.equal(Ovi.stringify({ value: 'http://localhost:8080' }), 'value:http://localhost:8080');
     });
 
     it('should correctly stringify and add quotes if there is a conflict with the delimiter', function() {
-      assert.equal(Ovi.stringify({value: 'http://localhost:8080,'}), 'value:"http://localhost:8080,"');
+      assert.equal(Ovi.stringify({ value: 'http://localhost:8080,' }), 'value:"http://localhost:8080,"');
     });
 
     it('should correctly stringify "null"', function() {
-      assert.equal(Ovi.stringify({value: 'null'}), 'value:"null"');
+      assert.equal(Ovi.stringify({ value: 'null' }), 'value:"null"');
     });
 
     it('should correctly stringify "undefined"', function() {
-      assert.equal(Ovi.stringify({value: 'undefined'}), 'value:"undefined"');
+      assert.equal(Ovi.stringify({ value: 'undefined' }), 'value:"undefined"');
     });
 
     it('should correctly stringify a string representation of a boolean', function() {
-      assert.equal(Ovi.stringify({val1: 'true', val2: 'false'}), 'val1:"true",val2:"false"');
+      assert.equal(Ovi.stringify({ val1: 'true', val2: 'false' }), 'val1:"true",val2:"false"');
     });
 
     it('should correctly stringify a string representation of a number', function() {
-      assert.equal(Ovi.stringify({val1: '100', val2: '010', val3: '10.1'}), 'val1:"100",val2:"010",val3:"10.1"');
+      assert.equal(Ovi.stringify({ val1: '100', val2: '010', val3: '10.1' }), 'val1:"100",val2:"010",val3:"10.1"');
     });
   });
 

@@ -35,6 +35,7 @@
   "requireSpaceBeforeBlockStatements": true,
   "requireParenthesesAroundIIFE": true,
   "requireSpacesInConditionalExpression": true,
+  "requireSpacesInsideObjectBrackets": "allButNested",
   "requireBlocksOnNewline": 1,
   "requireCommaBeforeLineBreak": true,
   "requireSpaceBeforeBinaryOperators": true,
