@@ -1,12 +1,12 @@
 {
-  "name": "ovi",
-  "homepage": "http://vodkabears.github.io/ovi/",
+  "name": "sop",
+  "homepage": "http://vodkabears.github.io/sop/",
   "authors": [
     "Ilya Makarov <dfrost.00@gmail.com>"
   ],
-  "description": "Micro-library for parsing stringified parameters or converting parameters to the string representation.",
+  "description": "Small library for parsing stringified properties or converting object properties to the string representation.",
   "main": [
-    "browser/ovi.min.js"
+    "browser/sop.min.js"
   ],
   "ignore": [
     "**/.*",

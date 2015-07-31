@@ -1,10 +1,11 @@
 {
-  "name": "ovi",
+  "name": "sop",
   "version": "0.0.1",
-  "description": "Micro-library for parsing stringified parameters or converting parameters to the string representation.",
+  "description": "Small library for parsing stringified properties or converting object properties to the string representation.",
   "keywords": [
     "micro-library",
     "parser",
+    "stringify",
     "converter",
     "parameters",
     "properties",
@@ -21,19 +22,19 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/VodkaBears/Ovi.git"
+    "url": "https://github.com/VodkaBears/Sop.git"
   },
   "bugs": {
-    "url": "https://github.com/VodkaBears/Ovi/issues"
+    "url": "https://github.com/VodkaBears/Sop/issues"
   },
   "author": {
     "name": "Ilya Makarov",
     "email": "dfrost.00@gmail.com",
     "url": "https://github.com/VodkaBears"
   },
-  "homepage": "http://vodkabears.github.io/ovi/",
+  "homepage": "http://vodkabears.github.io/sop/",
   "license": "MIT",
-  "main": "dist/ovi.js",
+  "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/gulp test"
   },
