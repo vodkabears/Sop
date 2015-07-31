@@ -2,7 +2,9 @@ var gulp = require('gulp');
 var jscs = require('gulp-jscs');
 var mocha = require('gulp-mocha');
 var jshint = require('gulp-jshint');
+var source = require('vinyl-source-stream');
 var istanbul = require('gulp-istanbul');
+var browserify = require('browserify');
 
 /**
  * @const
@@ -20,7 +22,7 @@ var JS_SRC = ['*.js', '!node_modules/**'];
  * @const
  * @type {Array}
  */
-var TEST_SRC = ['test/*.js'];
+var TEST_SRC = ['test/parse.js', 'test/stringify.js'];
 
 gulp.task('jshint', function() {
   gulp.src(JS_SRC)
@@ -34,7 +36,14 @@ gulp.task('jscs', function() {
     .pipe(jscs());
 });
 
-gulp.task('unit', function() {
+gulp.task('browserify-unit', function() {
+  return browserify({entries: TEST_SRC})
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest('test/browser/'));
+});
+
+gulp.task('unit', ['browserify-unit'], function() {
   return gulp.src(LIB_SRC)
     .pipe(istanbul())
     .pipe(istanbul.hookRequire())

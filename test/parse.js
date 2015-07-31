@@ -1,5 +1,5 @@
 var Ovi = require('../');
-var assert = require('chai').assert;
+var assert = require('proclaim');
 
 describe('.parse(str, opts)', function() {
   it('should correctly parse `null`', function() {
