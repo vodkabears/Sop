@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "Small library for parsing stringified properties or converting object properties to the string representation.",
   "keywords": [
-    "micro-library",
     "parser",
     "stringify",
     "converter",
@@ -18,7 +17,9 @@
     "parse",
     "convert",
     "browser",
-    "node"
+    "node",
+    "parsing",
+    "converting"
   ],
   "repository": {
     "type": "git",
@@ -32,7 +33,6 @@
     "email": "dfrost.00@gmail.com",
     "url": "https://github.com/VodkaBears"
   },
-  "homepage": "http://vodkabears.github.io/sop/",
   "license": "MIT",
   "main": "index.js",
   "scripts": {

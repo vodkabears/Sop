@@ -1,6 +1,5 @@
 {
   "name": "sop",
-  "homepage": "http://vodkabears.github.io/sop/",
   "authors": [
     "Ilya Makarov <dfrost.00@gmail.com>"
   ],
@@ -9,6 +8,7 @@
     "browser/sop.min.js"
   ],
   "ignore": [
+    "index.js",
     "**/.*",
     "test/",
     "*.md",
@@ -16,7 +16,6 @@
     "package.json"
   ],
   "keywords": [
-    "micro-library",
     "parser",
     "stringify",
     "converter",
@@ -31,7 +30,9 @@
     "parse",
     "convert",
     "browser",
-    "node"
+    "node",
+    "parsing",
+    "converting"
   ],
   "license": "MIT"
 }
