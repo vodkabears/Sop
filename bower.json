@@ -18,6 +18,7 @@
   "keywords": [
     "micro-library",
     "parser",
+    "stringify",
     "converter",
     "parameters",
     "properties",
