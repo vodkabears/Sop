@@ -52,10 +52,14 @@
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.2.0",
     "jshint-stylish": "^2.0.1",
+    "precommit-hook": "^3.0.0",
     "proclaim": "^3.3.0",
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
     "extend": "^3.0.0"
-  }
+  },
+  "pre-commit": [
+    "test"
+  ]
 }
