@@ -36,11 +36,13 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/gulp test"
+    "test": "./node_modules/.bin/gulp test",
+    "coveralls": "./node_modules/.bin/gulp coveralls"
   },
   "devDependencies": {
     "browserify": "^11.0.1",
     "gulp": "^3.9.0",
+    "gulp-coveralls": "^0.1.4",
     "gulp-header": "^1.2.2",
     "gulp-istanbul": "^0.10.0",
     "gulp-jscs": "^1.6.0",

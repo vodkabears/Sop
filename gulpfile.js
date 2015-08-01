@@ -8,6 +8,7 @@ var rename = require('gulp-rename');
 var header = require('gulp-header');
 var source = require('vinyl-source-stream');
 var istanbul = require('gulp-istanbul');
+var coveralls = require('gulp-coveralls');
 var browserify = require('browserify');
 
 /**
@@ -87,6 +88,11 @@ gulp.task('unit', function() {
     });
 });
 
+gulp.task('coveralls', function() {
+  gulp.src('coverage/lcov.info')
+    .pipe(coveralls());
+});
+
 gulp.task('browserify', function() {
   var name = pkg.name;
 
@@ -111,6 +117,6 @@ gulp.task('compress', ['browserify'], function() {
 });
 
 gulp.task('lint', ['jshint', 'jscs']);
-gulp.task('test', ['lint', 'unit','browserify-unit']);
+gulp.task('test', ['lint', 'unit', 'browserify-unit']);
 gulp.task('build', ['browserify', 'compress']);
 gulp.task('default', ['test', 'build']);
