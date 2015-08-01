@@ -61,12 +61,21 @@ gulp.task('jshint', function() {
   gulp.src(JS_SRC)
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jshint.reporter('fail'));
+    .pipe(jshint.reporter('fail'))
+    .on('error', function() {
+      console.error('JSHint failed');
+      process.exit(1);
+    });
 });
 
 gulp.task('jscs', function() {
   gulp.src(JS_SRC)
-    .pipe(jscs());
+    .pipe(jscs())
+    .on('error', function(err) {
+      console.error(err.toString());
+      console.error('JSCS failed');
+      process.exit(1);
+    });
 });
 
 gulp.task('browserify-unit', function() {
