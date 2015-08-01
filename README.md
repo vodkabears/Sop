@@ -2,13 +2,14 @@
 [![Bower version](https://badge.fury.io/bo/sop.svg)](http://badge.fury.io/bo/sop)
 [![Build Status](https://travis-ci.org/VodkaBears/Sop.svg?branch=master)](https://travis-ci.org/VodkaBears/Sop)
 [![Coverage Status](https://coveralls.io/repos/VodkaBears/Sop/badge.svg?branch=master&service=github)](https://coveralls.io/github/VodkaBears/Sop?branch=master)
-Sop
-=======
-Sop <- SOP <- Stringified object properties
+
+# Sop
+
+Sop <- SOP <- Stringified object properties.
 
 Sop is a small library for parsing stringified object properties or converting properties to the string representation.
 
-###Wat???
+### Wat???
 
 Example usage #1:
 ```html
@@ -55,7 +56,7 @@ elem.setAttribute('data-options', Sop.stringify(options))
 
 Node or IE8+
 
-###Installation and usage
+### Installation and usage
 
 Node, browserify:
 ```
@@ -85,9 +86,9 @@ bower install sop
 </script>
 ```
 
-###Methods
+### Methods
 
-####.parse(str, options)
+#### .parse(str, options)
 
 Parsed types: Number, Boolean, String, null, undefined.
 
@@ -130,7 +131,7 @@ Sop.parse('notNum: "10", notBool: "true", notNull: "null", notUndefined: "undefi
 }
 ```
 
-####.stringify(obj, options)
+#### .stringify(obj, options)
 
 ```js
 Sop.stringify({
@@ -176,7 +177,7 @@ Sop.stringify({
 }
 ```
 
-###License
+### License
 
 ```
 The MIT License (MIT)
