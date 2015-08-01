@@ -87,7 +87,7 @@ describe('.stringify(obj, opts)', function() {
         useSpaceAfterPropsDelim: true,
         useSpaceBeforePropsDelim: true,
         useAlwaysQuotesForStrings: true
-      }), 'num : 10 , str1 : http://te.st:80 , str2 : "http://te.st:80," , bool : false');
+      }), 'num : 10 , str1 : "http://te.st:80" , str2 : "http://te.st:80," , bool : false');
     });
 
     it('should correctly stringify an object when the key-value delimiter is `=` and the delimiter of properies is `&`', function() {

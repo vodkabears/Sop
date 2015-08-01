@@ -191,6 +191,7 @@ function parseValue(value) {
 function stringifyValue(value, opts) {
   if (typeof value === 'string' || value instanceof String) {
     if (
+      opts.useAlwaysQuotesForStrings ||
       isUnsafe(value, opts) ||
       isNull(value) ||
       isUndefined(value) ||
@@ -292,6 +293,7 @@ module.exports.parse = function(str, opts) {
  *  @param {Boolean} [opts.useSpaceAfterKeyValDelim=false]
  *  @param {Boolean} [opts.useSpaceBeforePropsDelim=false]
  *  @param {Boolean} [opts.useSpaceAfterPropsDelim=false]
+ *  @param {Boolean} [opts.useAlwaysQuotesForStrings=false]
  * @returns {String}
  */
 module.exports.stringify = function(obj, opts) {
