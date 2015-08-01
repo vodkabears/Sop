@@ -37,7 +37,8 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/gulp test",
-    "coveralls": "./node_modules/.bin/gulp coveralls"
+    "coveralls": "./node_modules/.bin/gulp coveralls",
+    "dist": "./node_modules/.bin/gulp"
   },
   "devDependencies": {
     "browserify": "^11.0.1",
