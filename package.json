@@ -1,6 +1,6 @@
 {
   "name": "sop",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Small library for parsing stringified properties or converting object properties to the string representation.",
   "keywords": [
     "parser",

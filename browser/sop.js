@@ -1,14 +1,6 @@
-/*
- *  Sop - v0.0.2
- *  Small library for parsing stringified properties or converting object properties to the string representation.
- *  https://github.com/VodkaBears/Sop.git
- *
- *  Made by Ilya Makarov
- *  Under MIT License
- */
+// Sop - v0.0.3. https://github.com/VodkaBears/Sop.git. Made by Ilya Makarov. MIT License.
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Sop = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
-var extend = require('extend');
 
 /**
  * Default options
@@ -30,6 +22,38 @@ var DEFAULTS = {
  * @type {RegExp}
  */
 var rDoubleQuotesFilter = /^"(.*)"$/;
+
+/**
+ * Has own property?
+ * @private
+ * @param {String} key
+ * @param {Object} ctx
+ * @returns {Boolean}
+ */
+function isOwnProperty(key, ctx) {
+  return Object.hasOwnProperty.call(ctx, key);
+}
+
+/**
+ * Extends default options
+ * @private
+ * @param {Object} opts
+ * @returns {Object}
+ */
+function extendDefaults(opts) {
+  opts = opts || {};
+
+  var res = {};
+  var key;
+
+  for (key in DEFAULTS) {
+    if (isOwnProperty(key, DEFAULTS)) {
+      res[key] = isOwnProperty(key, opts) ? opts[key] : DEFAULTS[key];
+    }
+  }
+
+  return res;
+}
 
 /**
  * Removes extra spaces
@@ -268,7 +292,7 @@ function joinProps(props, opts) {
  * @returns {Object}
  */
 module.exports.parse = function(str, opts) {
-  opts = extend({}, DEFAULTS, opts);
+  opts = extendDefaults(opts);
 
   var result = {};
   var i;
@@ -306,108 +330,19 @@ module.exports.parse = function(str, opts) {
  * @returns {String}
  */
 module.exports.stringify = function(obj, opts) {
-  opts = extend({}, DEFAULTS, opts);
+  opts = extendDefaults(opts);
 
-  var hasOwnProperty = Object.hasOwnProperty;
   var res = [];
   var key;
 
   for (key in obj) {
-    if (hasOwnProperty.call(obj, key)) {
+    if (isOwnProperty(key, obj)) {
       res.push(stringifyProp(key, obj[key], opts));
     }
   }
 
   return joinProps(res, opts);
 };
-
-},{"extend":2}],2:[function(require,module,exports){
-'use strict';
-
-var hasOwn = Object.prototype.hasOwnProperty;
-var toStr = Object.prototype.toString;
-
-var isArray = function isArray(arr) {
-	if (typeof Array.isArray === 'function') {
-		return Array.isArray(arr);
-	}
-
-	return toStr.call(arr) === '[object Array]';
-};
-
-var isPlainObject = function isPlainObject(obj) {
-	if (!obj || toStr.call(obj) !== '[object Object]') {
-		return false;
-	}
-
-	var hasOwnConstructor = hasOwn.call(obj, 'constructor');
-	var hasIsPrototypeOf = obj.constructor && obj.constructor.prototype && hasOwn.call(obj.constructor.prototype, 'isPrototypeOf');
-	// Not own constructor property must be Object
-	if (obj.constructor && !hasOwnConstructor && !hasIsPrototypeOf) {
-		return false;
-	}
-
-	// Own properties are enumerated firstly, so to speed up,
-	// if last one is own, then all properties are own.
-	var key;
-	for (key in obj) {/**/}
-
-	return typeof key === 'undefined' || hasOwn.call(obj, key);
-};
-
-module.exports = function extend() {
-	var options, name, src, copy, copyIsArray, clone,
-		target = arguments[0],
-		i = 1,
-		length = arguments.length,
-		deep = false;
-
-	// Handle a deep copy situation
-	if (typeof target === 'boolean') {
-		deep = target;
-		target = arguments[1] || {};
-		// skip the boolean and the target
-		i = 2;
-	} else if ((typeof target !== 'object' && typeof target !== 'function') || target == null) {
-		target = {};
-	}
-
-	for (; i < length; ++i) {
-		options = arguments[i];
-		// Only deal with non-null/undefined values
-		if (options != null) {
-			// Extend the base object
-			for (name in options) {
-				src = target[name];
-				copy = options[name];
-
-				// Prevent never-ending loop
-				if (target !== copy) {
-					// Recurse if we're merging plain objects or arrays
-					if (deep && copy && (isPlainObject(copy) || (copyIsArray = isArray(copy)))) {
-						if (copyIsArray) {
-							copyIsArray = false;
-							clone = src && isArray(src) ? src : [];
-						} else {
-							clone = src && isPlainObject(src) ? src : {};
-						}
-
-						// Never move original objects, clone them
-						target[name] = extend(deep, clone, copy);
-
-					// Don't bring in undefined values
-					} else if (typeof copy !== 'undefined') {
-						target[name] = copy;
-					}
-				}
-			}
-		}
-	}
-
-	// Return the modified object
-	return target;
-};
-
 
 },{}]},{},[1])(1)
 });
