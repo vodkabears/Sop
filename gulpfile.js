@@ -15,17 +15,13 @@ var browserify = require('browserify');
  * @const
  * @type {String}
  */
-var BANNER = [
-  '/*',
-  ' *  <%= pkg.name[0].toUpperCase() + pkg.name.slice(1) %> - v<%= pkg.version %>',
-  ' *  <%= pkg.description %>',
-  ' *  <%= pkg.repository.url %>',
-  ' *',
-  ' *  Made by <%= pkg.author.name %>',
-  ' *  Under <%= pkg.license %> License',
-  ' */',
-  ''
-].join('\n');
+var BANNER =
+  '// ' +
+  '<%= pkg.name[0].toUpperCase() + pkg.name.slice(1) %> - v<%= pkg.version %>. ' +
+  '<%= pkg.repository.url %>. ' +
+  'Made by <%= pkg.author.name %>. ' +
+  '<%= pkg.license %> License.' +
+  '\n';
 
 /**
  * @const

@@ -1,5 +1,4 @@
 'use strict';
-var extend = require('extend');
 
 /**
  * Default options
@@ -21,6 +20,38 @@ var DEFAULTS = {
  * @type {RegExp}
  */
 var rDoubleQuotesFilter = /^"(.*)"$/;
+
+/**
+ * Has own property?
+ * @private
+ * @param {String} key
+ * @param {Object} ctx
+ * @returns {Boolean}
+ */
+function isOwnProperty(key, ctx) {
+  return Object.hasOwnProperty.call(ctx, key);
+}
+
+/**
+ * Extends default options
+ * @private
+ * @param {Object} opts
+ * @returns {Object}
+ */
+function extendDefaults(opts) {
+  opts = opts || {};
+
+  var res = {};
+  var key;
+
+  for (key in DEFAULTS) {
+    if (isOwnProperty(key, DEFAULTS)) {
+      res[key] = isOwnProperty(key, opts) ? opts[key] : DEFAULTS[key];
+    }
+  }
+
+  return res;
+}
 
 /**
  * Removes extra spaces
@@ -259,7 +290,7 @@ function joinProps(props, opts) {
  * @returns {Object}
  */
 module.exports.parse = function(str, opts) {
-  opts = extend({}, DEFAULTS, opts);
+  opts = extendDefaults(opts);
 
   var result = {};
   var i;
@@ -297,14 +328,13 @@ module.exports.parse = function(str, opts) {
  * @returns {String}
  */
 module.exports.stringify = function(obj, opts) {
-  opts = extend({}, DEFAULTS, opts);
+  opts = extendDefaults(opts);
 
-  var hasOwnProperty = Object.hasOwnProperty;
   var res = [];
   var key;
 
   for (key in obj) {
-    if (hasOwnProperty.call(obj, key)) {
+    if (isOwnProperty(key, obj)) {
       res.push(stringifyProp(key, obj[key], opts));
     }
   }
