@@ -1,3 +1,6 @@
+### 0.0.3
+* Reduce browser bundle size.
+
 ### 0.0.2
 * Add the lost 'useAlwaysQuotesForStrings' option.
 * Stop tasks on jscs, jshint errors.
